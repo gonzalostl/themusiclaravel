@@ -93,7 +93,7 @@ class CancionesController extends Controller
         // Guarda los cambios en la bd
         $cancion->save();
 
-        // Redirigir a alguna vista después de actualizar el usuario
+        // Redirigir a alguna vista después de actualizar la cancion
         return redirect()->route('canciones.index')->with('success', 'Cancion actualizado correctamente.');
     }
 

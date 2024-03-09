@@ -8,6 +8,9 @@
         <a href="{{route('logout')}}">
             <button type="button" class="btn btn-online-primary me-2">Salir</button>
         </a>
+        <a href="{{route('users.index')}}">
+            <button type="button" class="btn btn-online-primary me-2">Usuarios</button>
+        </a>
     </div>
         <div class="card">
             
