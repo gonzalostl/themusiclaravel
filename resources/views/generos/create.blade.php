@@ -1,8 +1,33 @@
 
+
 @extends('layouts.app2')
 
+<link rel="stylesheet" href="/css/edit.css">
 
-<h1>Crear nuevo género</h1>
+<body>
+<aside id="sidebar">
+
+<ul>
+    <li>
+        <img src="/imagen/logothemusic.png" class="logo" width="40%">
+    </li>
+    <li><a href="{{ route('home') }}" class="menu-item active"><i class="fas fa-home"></i> Inicio</a></li>          
+        <li><a href="{{ route('canciones.index') }}" class="menu-item"><i class="fas fa-music"></i> Canciones</a></li>
+        <li><a href="{{route('generos.index')}}" class="menu-item"><i class="fas fa-list"></i> Géneros</a></li>
+        <li><a href="{{ route('playlists.index') }}" class="menu-item"><i class="fas fa-list"></i> Playlists</a></li>
+        <li><a href="{{route('users.index')}}" class="menu-item"><i class="fas fa-user"></i> Usuarios</a></li>
+</ul>
+<ul>
+    <li>    <a href="{{route('logout')}}" class="menu-item">
+        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+    </a></li>
+</ul>
+
+
+</aside>
+<div class="content">
+    <div class="form-container">
+    <h1>Crear nuevo género</h1>
 
 <form method="POST" action="{{ route('generos.store') }}" enctype="multipart/form-data">
     @csrf
@@ -30,11 +55,11 @@
         </div>
     </div>
 
-    <a href="{{ route('generos.index')}}">Cancelar</a>
     <button type="submit">Crear género</button>
 </form>
-
-
+    </div>
+</div>
+</body>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -49,3 +74,7 @@
          });
      });
 </script>
+
+
+
+
