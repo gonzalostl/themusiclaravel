@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('artista');
             $table->integer('duracion');
+            $table->string('audio')->nullable();
+            $table->string('imagen')->nullable();
             $table->timestamps();
         });
     }

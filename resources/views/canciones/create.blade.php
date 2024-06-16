@@ -1,7 +1,6 @@
 
-@extends('layouts.app')
+@extends('layouts.app2')
 
-@section('content')
 <h1>Crear nueva cancion</h1>
 
 <form method="POST" action="{{ route('canciones.store') }}">
@@ -22,6 +21,31 @@
         <input id="duracion" type="number" name="duracion" required>
     </div>
 
+<!-- -->   <div>
+        <img id="imagenSeleccionada" style="max-height: 300px;">
+    </div>
+
+ <div>
+        <label>Subir imagen</label>
+        <div>
+            <label>
+                <input type="file" name="imagen" id="imagen" class="hidden"/>
+            </label>
+        </div>
+    </div>
     <button type="submit">Crear canción</button>
 </form>
-@endsection
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!----><script>
+    $(document).ready(function (e) { 
+        $('#imagen').change(function () { 
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#imagenSeleccionada').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+         });
+     });
+</script>

@@ -8,18 +8,27 @@ use Illuminate\Http\Request;
 
 class CancionesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        $canciones = canciones::all();
+
+        $search = $request->input('search');
+
+        if ($search) {
+            $canciones = canciones::where('nombre', 'LIKE', "%{$search}%")
+                            ->orWhere('artista', 'LIKE', "%{$search}%")
+                            ->get();
+        } else {
+            $canciones = canciones::all();
+        }
+    
         return view('canciones.index', compact('canciones'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
+    
     public function create()
     {
         return view('canciones.create');
@@ -35,13 +44,24 @@ class CancionesController extends Controller
             'nombre' => 'required|string|max:255',
             'artista' => 'required|string|max:255',
             'duracion' => 'required|integer',
+            'imagen' => ' nullable|image|mimes:jpeg,png,jpg',
         ]);
+
+       /**/ $cancion = $request->all();
+
+       if($cancion = $request->file('imagen')){
+            $rutaGuardarImg = 'portada/';
+            $portadaCancion = date('YmdHis'). "." . $cancion->getClientOriginalExtension();
+            $cancion->move($rutaGuardarImg, $portadaCancion);
+            $cancion['imagen'] = "$portadaCancion";
+        }
 
         // Crear la nueva cancion con los datos 
         canciones::create([
             'nombre' => $request->input('nombre'),
             'artista' => $request->input('artista'),
             'duracion' => $request->input('duracion'),
+            'imagen' =>  $portadaCancion
             
         ]);
 
@@ -88,7 +108,6 @@ class CancionesController extends Controller
         $cancion->nombre = $request->input('nombre');
         $cancion->artista = $request->input('artista');
         $cancion->duracion = $request->input('duracion');
-        
 
         // Guarda los cambios en la bd
         $cancion->save();

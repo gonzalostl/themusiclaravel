@@ -11,15 +11,26 @@ class UsuariosController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+
+        $search = $request->input('search');
+
+        if ($search) {
+            $users = User::where('name', 'LIKE', "%{$search}%")
+                            ->orWhere('email', 'LIKE', "%{$search}%")
+                            ->get();
+        } else {
+            $users = User::all();
+        }
+    
         return view('users.index', compact('users'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
+
     public function create()
     {
         return view('users.create');

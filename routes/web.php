@@ -1,10 +1,13 @@
-<?php
+ <?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CancionesController;
 use App\Http\Controllers\UsuariosController;
-
+use App\Http\Controllers\GenerosController;
+use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\HomeController;
+use App\Models\Home;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +20,7 @@ use App\Http\Controllers\UsuariosController;
 |
 */
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Route::get('/canciones', [CancionesController::class, 'index'])->middleware('auth')->name('canciones.index');
@@ -36,6 +39,22 @@ Route::get('/users/{id}/edit', [UsuariosController::class, 'edit'])->name('users
 Route::put('/users/{id}', [UsuariosController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [UsuariosController::class, 'destroy'])->name('users.destroy');
 
+Route::get('/generos', [GenerosController::class, 'index'])->middleware('auth')->name('generos.index');
+Route::get('/generos/create', [GenerosController::class, 'create'])->name('generos.create');
+Route::post('/generos', [GenerosController::class, 'store'])->name('generos.store');
+Route::get('/generos/{id}', [GenerosController::class, 'show'])->name('generos.show');
+Route::get('/generos/{id}/edit', [GenerosController::class, 'edit'])->name('generos.edit');
+Route::put('/generos/{id}', [GenerosController::class, 'update'])->name('generos.update');
+Route::delete('/generos/{id}', [GenerosController::class, 'destroy'])->name('generos.destroy');
+
+Route::get('/playlists', [PlaylistController::class, 'index'])->middleware('auth')->name('playlists.index');
+Route::get('/playlists/create', [PlaylistController::class, 'create'])->name('playlists.create');
+Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
+Route::get('/playlists/{id}', [PlaylistController::class, 'show'])->name('playlists.show');
+Route::get('/playlists/{id}/edit', [PlaylistController::class, 'edit'])->name('playlists.edit');
+Route::put('/playlists/{id}', [PlaylistController::class, 'update'])->name('playlists.update');
+Route::delete('/playlists/{id}', [PlaylistController::class, 'destroy'])->name('playlists.destroy');
+
 Route::view('/login', "login")->name('login');
 Route::view('/registro', "register")->name('registro');
 
@@ -46,5 +65,9 @@ Route::post('/inicia-sesion', [LoginController::class,'login'])->
 name('inicio-sesion');
 
 Route::get('/logout',[LoginController::class, 'logout'])->name('logout');
+
+Route::view('/home', "home")->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 
 

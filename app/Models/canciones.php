@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class canciones extends Model
 {
     protected $fillable = [
-        'nombre', 'artista', 'duracion',
+        'nombre', 'artista', 'duracion', 'imagen'
     ];
 }

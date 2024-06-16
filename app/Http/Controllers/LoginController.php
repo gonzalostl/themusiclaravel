@@ -20,12 +20,13 @@ class LoginController extends Controller{
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->fotoperfil = $request->fotoperfil;
 
         $user->save();
         
         Auth::login($user);
 
-        return redirect(route('canciones.index'));
+        return redirect(route('home'));
     }
 
     public function login(Request $request){
@@ -44,7 +45,7 @@ class LoginController extends Controller{
 
             $request->session()->regenerate();
 
-            return redirect()->intended(route('canciones.index'));
+            return redirect()->intended(route('home'));
 
         }else{
             return redirect('login');
