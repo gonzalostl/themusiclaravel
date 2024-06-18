@@ -10,4 +10,5 @@ class generos extends Model
     protected $fillable = [
         'genero', 'descripcion', 'portada'
     ];
+
 }

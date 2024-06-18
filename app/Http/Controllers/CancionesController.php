@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\canciones;
+use App\Models\artista;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,9 @@ class CancionesController extends Controller
     
     public function create()
     {
+
+        $artistas = artista::all(); // Asegúrate de tener un modelo Artista
+        return view('canciones.create', compact('artistas'));
         return view('canciones.create');
     }
 
@@ -44,6 +48,7 @@ class CancionesController extends Controller
             'nombre' => 'required|string|max:255',
             'artista' => 'required|string|max:255',
             'duracion' => 'required|integer',
+            'artista_id' => 'required|exists:artistas,id',
         /**/'imagen' => ' nullable|image|mimes:jpeg,png,jpg',
 
         ]);
@@ -63,6 +68,7 @@ class CancionesController extends Controller
             'nombre' => $request->input('nombre'),
             'artista' => $request->input('artista'),
             'duracion' => $request->input('duracion'),
+            'artista_id' => $request->input('artista_id'),
      /**/   'imagen' =>  $portadaCancion
             
         ]);

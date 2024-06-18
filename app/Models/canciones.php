@@ -10,4 +10,9 @@ class canciones extends Model
     protected $fillable = [
         'nombre', 'artista', 'duracion', 'imagen', 'audio'
     ];
+    
+    public function artista()
+    {
+        return $this->belongsTo(artista::class);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\generos;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,7 @@ class GenerosController extends Controller
      */
     public function create()
     {
+
         return view('generos.create');
     }
 

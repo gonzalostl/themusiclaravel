@@ -3,19 +3,18 @@
 <link rel="stylesheet" href="/css/generos.css">
 <body>
 <aside id="sidebar">
-
     <ul>
         <li>
             <img src="/imagen/logothemusic.png" class="logo" width="40%">
         </li>
-        <li><a href="{{ route('home') }}" class="menu-item active"><i class="fas fa-home"></i> Inicio</a></li>          
-            <li><a href="{{ route('canciones.index') }}" class="menu-item"><i class="fas fa-music"></i> Canciones</a></li>
-            <li><a href="{{route('generos.index')}}" class="menu-item"><i class="fas fa-list"></i> Géneros</a></li>
-            <li><a href="{{ route('artistas.index') }}" class="menu-item"><i class="fas fa-list"></i> Artistas</a></li>
-            <li><a href="{{route('users.index')}}" class="menu-item"><i class="fas fa-user"></i> Usuarios</a></li>
+        <li><a href="{{ route('home') }}" class="menu-item "><i class="fas fa-home"></i> Inicio</a></li>          
+        <li><a href="{{ route('canciones.index') }}" class="menu-item active"><i class="fas fa-music"></i> Canciones</a></li>
+        <li><a href="{{route('generos.index')}}" class="menu-item"><i class="fas fa-list"></i> Géneros</a></li>
+        <li><a href="{{ route('artistas.index') }}" class="menu-item"><i class="fas fa-list"></i> Artistas</a></li>
+        <li><a href="{{route('users.index')}}" class="menu-item"><i class="fas fa-user"></i> Usuarios</a></li>
     </ul>
     <ul>
-        <li>    <a href="{{route('logout')}}">
+        <li><a href="{{route('logout')}}">
             <i class="fas fa-sign-out-alt"></i> Cerrar sesión
         </a></li>
     </ul>
@@ -37,41 +36,56 @@
                 <div class="card-body">
                     <a href="{{ route('canciones.create') }}" class="btn btn-success btn-sm my-2 new-genre-button"><i class="fas fa-plus-circle"></i> Nueva Canción</a>
                     <div class="genre-grid">
-                    @foreach ($canciones as $cancion)
-                        <div class="genre-card">
-                            <img src="/portada/{{ $cancion->imagen }}" class="genre-image">
-                            <div class="genre-info">
-                                <h2>{{ $cancion->nombre }}</h2>
-                                <p>{{ $cancion->artista }}</p>
-                                @if($cancion->audio)
-                                    <audio controls>
-                                        <source src="/audios/{{ $cancion->audio }}" type="audio/mp3">
-                                        Tu navegador no soporta el elemento de audio.
-                                    </audio>
-                                @endif
-                                <div class="dropdown">
-                                    <button class="dropbtn"><i class="fas fa-ellipsis-v"></i></button>
-                                    <div class="dropdown-content">
-                                        <a href="{{ route('canciones.show', $cancion->id) }}"><i class="fas fa-eye"></i> Ver</a>
-                                        <a href="{{ route('canciones.edit', $cancion->id) }}"><i class="fas fa-pencil-square"></i> Editar</a>
-                                        <a href="#" onclick="event.preventDefault(); if(confirm('¿Quieres eliminar esta canción?')) { document.getElementById('delete-form-{{ $cancion->id }}').submit(); }"><i class="fas fa-trash"></i> Eliminar</a>
-                                        <form id="delete-form-{{ $cancion->id }}" action="{{ route('canciones.destroy', $cancion->id) }}" method="post" style="display: none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
+                        @foreach ($canciones as $cancion)
+                            <div class="genre-card">
+                                <img src="/portada/{{ $cancion->imagen }}" class="genre-image">
+                                <div class="genre-info">
+                                    <h2>{{ $cancion->nombre }}</h2>
+                                    <p>{{ $cancion->artista }}</p>
+                                    
+                                        <button class="btn btn-primary play-button" data-audio="/audios/ojosverdes.mp3"><i class="fas fa-play"></i> </button>
+                                        <audio class="audio-player" src="/audios/ojosverdes.mp3" type="audio/mp3" style="display:none;">
+                                            Tu navegador no soporta el elemento de audio.
+                                        </audio>
+                                 
+                                    <div class="dropdown">
+                                        <button class="dropbtn"><i class="fas fa-ellipsis-v"></i></button>
+                                        <div class="dropdown-content">
+                                            <a href="{{ route('canciones.show', $cancion->id) }}"><i class="fas fa-eye"></i> Ver</a>
+                                            <a href="{{ route('canciones.edit', $cancion->id) }}"><i class="fas fa-pencil-square"></i> Editar</a>
+                                            <a href="#" onclick="event.preventDefault(); if(confirm('¿Quieres eliminar esta canción?')) { document.getElementById('delete-form-{{ $cancion->id }}').submit(); }"><i class="fas fa-trash"></i> Eliminar</a>
+                                            <form id="delete-form-{{ $cancion->id }}" action="{{ route('canciones.destroy', $cancion->id) }}" method="post" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 <script>
+    document.querySelectorAll('.play-button').forEach(button => {
+        button.addEventListener('click', function () {
+            const audioPlayer = this.nextElementSibling;
+            if (audioPlayer.paused) {
+                audioPlayer.style.display = 'block';
+                audioPlayer.play();
+                this.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+            } else {
+                audioPlayer.pause();
+                audioPlayer.style.display = 'none';
+                this.innerHTML = '<i class="fas fa-play"></i> Reanudar';
+            }
+        });
+    });
+
     document.querySelector('.show-search').addEventListener('click', function () {
         document.querySelector('.search-form').classList.toggle('active');
     });

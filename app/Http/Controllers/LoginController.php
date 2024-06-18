@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreUserRequest;
 
 class LoginController extends Controller{
 
     //
+
     public function register(Request $request){
 
         //validar datos
