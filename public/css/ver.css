@@ -82,7 +82,7 @@ body {
 }
 
 .details img {
-    max-width: 100%;
+    max-width: 80%;
     height: auto;
     border: 1px solid #ddd;
     border-radius: 4px;

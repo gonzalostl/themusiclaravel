@@ -13,7 +13,7 @@
     <li><a href="{{ route('home') }}" class="menu-item active"><i class="fas fa-home"></i> Inicio</a></li>          
         <li><a href="{{ route('canciones.index') }}" class="menu-item"><i class="fas fa-music"></i> Canciones</a></li>
         <li><a href="{{route('generos.index')}}" class="menu-item"><i class="fas fa-list"></i> Géneros</a></li>
-        <li><a href="{{ route('playlists.index') }}" class="menu-item"><i class="fas fa-list"></i> Playlists</a></li>
+        <li><a href="{{ route('artistas.index') }}" class="menu-item"><i class="fas fa-list"></i> Artistas</a></li>
         <li><a href="{{route('users.index')}}" class="menu-item"><i class="fas fa-user"></i> Usuarios</a></li>
 </ul>
 <ul>
@@ -28,7 +28,7 @@
     <div class="form-container">
     <h1>Crear nueva cancion</h1>
 
-<form method="POST" action="{{ route('canciones.store') }}">
+<form method="POST" action="{{ route('canciones.store') }}" enctype="multipart/form-data">
     @csrf
 
     <div>
@@ -58,6 +58,7 @@
             </label>
         </div>
     </div>
+
     <button type="submit">Crear canción</button>
 </form>
     </div>
@@ -68,7 +69,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     $(document).ready(function (e) { 
-        $('#portada').change(function () { 
+        $('#imagen').change(function () { 
             let reader = new FileReader();
             reader.onload = (e) => {
                 $('#imagenSeleccionada').attr('src', e.target.result);

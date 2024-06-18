@@ -5,7 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CancionesController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\GenerosController;
-use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\ArtistaController;
 use App\Http\Controllers\HomeController;
 use App\Models\Home;
 
@@ -47,13 +47,13 @@ Route::get('/generos/{id}/edit', [GenerosController::class, 'edit'])->name('gene
 Route::put('/generos/{id}', [GenerosController::class, 'update'])->name('generos.update');
 Route::delete('/generos/{id}', [GenerosController::class, 'destroy'])->name('generos.destroy');
 
-Route::get('/playlists', [PlaylistController::class, 'index'])->middleware('auth')->name('playlists.index');
-Route::get('/playlists/create', [PlaylistController::class, 'create'])->name('playlists.create');
-Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
-Route::get('/playlists/{id}', [PlaylistController::class, 'show'])->name('playlists.show');
-Route::get('/playlists/{id}/edit', [PlaylistController::class, 'edit'])->name('playlists.edit');
-Route::put('/playlists/{id}', [PlaylistController::class, 'update'])->name('playlists.update');
-Route::delete('/playlists/{id}', [PlaylistController::class, 'destroy'])->name('playlists.destroy');
+Route::get('/artistas', [ArtistaController::class, 'index'])->middleware('auth')->name('artistas.index');
+Route::get('/artistas/create', [ArtistaController::class, 'create'])->name('artistas.create');
+Route::post('/artistas', [ArtistaController::class, 'store'])->name('artistas.store');
+Route::get('/artistas/{id}', [ArtistaController::class, 'show'])->name('artistas.show');
+Route::get('/artistas/{id}/edit', [ArtistaController::class, 'edit'])->name('artistas.edit');
+Route::put('/artistas/{id}', [ArtistaController::class, 'update'])->name('artistas.update');
+Route::delete('/artistas/{id}', [ArtistaController::class, 'destroy'])->name('artistas.destroy');
 
 Route::view('/login', "login")->name('login');
 Route::view('/registro', "register")->name('registro');

@@ -1,3 +1,6 @@
+
+
+
 @extends('layouts.app')
 
 
@@ -22,12 +25,14 @@
 <div class="main-content">
         <main class="content">
         <div class="details">
-            <h2>DETALLES</h2>
-            <p>Id: {{ $genero->id }}</p>
-            <p>Género: {{ $genero->genero }}</p>
-            <p>Descripción: {{ $genero->descripcion }}</p>
-            <p>Portada: </p>
-            <img src="/portada/{{ $genero->portada }}" alt="">
+            
+<h2>DETALLES</h2>
+<p>Id: {{ $artistas->id }}</p>
+<p>Nombre: {{ $artistas->Nombre }}</p>
+<p>Artista: {{ $artistas->NombreArt }}</p>
+<p>Duracion: {{ $artistas->Descripcion }}</p>
+<p>Foto: </p>
+            <img src="/portada/{{ $artistas->Foto }}" alt="">
         </div></main>
     </div>
 

@@ -44,15 +44,17 @@ class CancionesController extends Controller
             'nombre' => 'required|string|max:255',
             'artista' => 'required|string|max:255',
             'duracion' => 'required|integer',
-            'imagen' => ' nullable|image|mimes:jpeg,png,jpg',
+        /**/'imagen' => ' nullable|image|mimes:jpeg,png,jpg',
+
         ]);
 
        /**/ $cancion = $request->all();
 
-       if($cancion = $request->file('imagen')){
+       $portadaCancion = null;
+       if($imagen = $request->file('imagen')){
             $rutaGuardarImg = 'portada/';
-            $portadaCancion = date('YmdHis'). "." . $cancion->getClientOriginalExtension();
-            $cancion->move($rutaGuardarImg, $portadaCancion);
+            $portadaCancion = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
+            $imagen->move($rutaGuardarImg, $portadaCancion);
             $cancion['imagen'] = "$portadaCancion";
         }
 
@@ -61,7 +63,7 @@ class CancionesController extends Controller
             'nombre' => $request->input('nombre'),
             'artista' => $request->input('artista'),
             'duracion' => $request->input('duracion'),
-            'imagen' =>  $portadaCancion
+     /**/   'imagen' =>  $portadaCancion
             
         ]);
 
@@ -98,9 +100,19 @@ class CancionesController extends Controller
             'nombre' => 'required|string|max:255',
             'artista' => 'required|string|max:255' . $id,
             'duracion' => 'required|integer|unique:canciones,duracion,' . $id,
+            'imagen' => ' nullable|image|mimes:jpeg,png,jpg' . $id,
             
         ]);
 
+        $cancion = $request->all();
+
+       $portadaCancion = null;
+       if($imagen = $request->file('imagen')){
+            $rutaGuardarImg = 'portada/';
+            $portadaCancion = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
+            $imagen->move($rutaGuardarImg, $portadaCancion);
+            $cancion['imagen'] = "$portadaCancion";
+        }
         // Busca cancion que queremos actualizar
         $cancion = canciones::findOrFail($id);
 
@@ -108,6 +120,7 @@ class CancionesController extends Controller
         $cancion->nombre = $request->input('nombre');
         $cancion->artista = $request->input('artista');
         $cancion->duracion = $request->input('duracion');
+        $cancion->imagen = $portadaCancion;
 
         // Guarda los cambios en la bd
         $cancion->save();

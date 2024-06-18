@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class artista extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'Nombre', 'NombreArt', 'Descripcion', 'Foto'
+    ];
 }

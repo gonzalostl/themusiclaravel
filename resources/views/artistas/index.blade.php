@@ -1,6 +1,6 @@
 @extends('layouts.app2')
 
-<link rel="stylesheet" href="/css/generos.css">
+<link rel="stylesheet" href="/css/art.css">
 <body>
 <aside id="sidebar">
 
@@ -25,9 +25,9 @@
     <div class="row justify-content-center mt-3">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Canciones</div>
+                <div class="card-header">Artistas</div>
                 <div class="col-md-6 text-end">
-                    <form action="{{ route('canciones.index') }}" method="GET" class="form-inline my-2 my-lg-0">
+                    <form action="{{ route('artistas.index') }}" method="GET" class="form-inline my-2 my-lg-0">
                         <div class="input-group">
                             <input class="form-control mr-sm-2 search-input" type="search" placeholder="Buscar Canción" aria-label="Buscar" name="search">
                             <button class="btn btn-outline-success my-2 my-sm-0 search-button" type="submit"><i class="fas fa-search"></i></button>
@@ -35,27 +35,21 @@
                     </form>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('canciones.create') }}" class="btn btn-success btn-sm my-2 new-genre-button"><i class="fas fa-plus-circle"></i> Nueva Canción</a>
+                    <a href="{{ route('artistas.create') }}" class="btn btn-success btn-sm my-2 new-genre-button"><i class="fas fa-plus-circle"></i> Nuevo Artista</a>
                     <div class="genre-grid">
-                    @foreach ($canciones as $cancion)
+                    @foreach ($artistas as $artista)
                         <div class="genre-card">
-                            <img src="/portada/{{ $cancion->imagen }}" class="genre-image">
+                            <img src="/portada/{{ $artista->Foto }}" class="genre-image">
                             <div class="genre-info">
-                                <h2>{{ $cancion->nombre }}</h2>
-                                <p>{{ $cancion->artista }}</p>
-                                @if($cancion->audio)
-                                    <audio controls>
-                                        <source src="/audios/{{ $cancion->audio }}" type="audio/mp3">
-                                        Tu navegador no soporta el elemento de audio.
-                                    </audio>
-                                @endif
+                                <h2>{{ $artista->NombreArt }}</h2>
+
                                 <div class="dropdown">
                                     <button class="dropbtn"><i class="fas fa-ellipsis-v"></i></button>
                                     <div class="dropdown-content">
-                                        <a href="{{ route('canciones.show', $cancion->id) }}"><i class="fas fa-eye"></i> Ver</a>
-                                        <a href="{{ route('canciones.edit', $cancion->id) }}"><i class="fas fa-pencil-square"></i> Editar</a>
-                                        <a href="#" onclick="event.preventDefault(); if(confirm('¿Quieres eliminar esta canción?')) { document.getElementById('delete-form-{{ $cancion->id }}').submit(); }"><i class="fas fa-trash"></i> Eliminar</a>
-                                        <form id="delete-form-{{ $cancion->id }}" action="{{ route('canciones.destroy', $cancion->id) }}" method="post" style="display: none;">
+                                        <a href="{{ route('artistas.show', $artista->id) }}"><i class="fas fa-eye"></i> Ver</a>
+                                        <a href="{{ route('artistas.edit', $artista->id) }}"><i class="fas fa-pencil-square"></i> Editar</a>
+                                        <a href="#" onclick="event.preventDefault(); if(confirm('¿Quieres eliminar este artista?')) { document.getElementById('delete-form-{{ $artista->id }}').submit(); }"><i class="fas fa-trash"></i> Eliminar</a>
+                                        <form id="delete-form-{{ $artista->id }}" action="{{ route('artistas.destroy', $artista->id) }}" method="post" style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                         </form>

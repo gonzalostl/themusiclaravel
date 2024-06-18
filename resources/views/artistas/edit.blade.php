@@ -1,5 +1,3 @@
-
-
 @extends('layouts.app2')
 
 <link rel="stylesheet" href="/css/edit.css">
@@ -27,37 +25,47 @@
 </aside>
 <div class="content">
     <div class="form-container">
-    <h1>Crear nuevo usuario</h1>
-
-<form method="POST" action="{{ route('users.store') }}">
+        <h1>Editar Artista</h1>
+        <form  action="{{ route('artistas.update', $artistas->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
-
+    @method('PUT')
     <div>
-        <label for="name">Nombre</label>
-        <input id="name" type="text" name="name" required>
+        <label for="Nombre">Nombre</label>
+        <input id="Nombre" type="text" name="Nombre" value="{{ $artistas->Nombre }}" required>
+    </div>
+    <div>
+        <label for="Nombreart">Nombre artístico</label>
+        <input id="Nombreart" type="text" name="NombreArt" value="{{ $artistas->NombreArt }}" required>
     </div>
 
     <div>
-        <label for="email">Correo</label>
-        <input id="email" type="email" name="email" required>
+        <label for="Descripcion">Descripción</label>
+        <input id="Descripcion" type="text" name="Descripcion" value="{{ $artistas->Descripcion }}" required>
     </div>
 
-    <div>
-        <label for="password">Contraseña</label>
-        <input id="password" type="password" name="password" required>
+<!-- -->   <div>
+        <img id="imagenSeleccionada" style="max-height: 300px;">
     </div>
 
-    <button type="submit">Crear usuario</button>
+ <div>
+        <label>Subir imagen</label>
+        <div>
+            <label>
+                <input type="file" name="Foto" id="Foto" class="hidden"/>
+            </label>
+        </div>
+    </div>
+
+    <button type="submit">Actualizar</button>
 </form>
     </div>
 </div>
 </body>
 
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     $(document).ready(function (e) { 
-        $('#portada').change(function () { 
+        $('#Foto').change(function () { 
             let reader = new FileReader();
             reader.onload = (e) => {
                 $('#imagenSeleccionada').attr('src', e.target.result);
@@ -66,7 +74,3 @@
          });
      });
 </script>
-
-
-
-
